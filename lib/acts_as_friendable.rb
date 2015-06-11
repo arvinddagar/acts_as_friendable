@@ -9,10 +9,10 @@ module ActsAsFriendable
     receiver.class_eval do
       has_many :friendships, :class_name => "ActsAsFriendable::Friendship", :dependent => :destroy
       has_many :inverse_friendships, :class_name => "ActsAsFriendable::Friendship", :foreign_key => "friend_id", :dependent => :destroy
-      has_many :direct_friends, :through => :friendships, source: :friend, -> { where approved: true }
-      has_many :inverse_friends, :through => :inverse_friendships, source: :user, -> { where approved: true }
-      has_many :pending_friends, :through => :friendships, source: :friend, -> { where approved: true }
-      has_many :requested_friendships, :through => :inverse_friendships, source: :user, -> { where approved: true }
+      has_many :direct_friends, :through => :friendships, source: :friend
+      has_many :inverse_friends, :through => :inverse_friendships, source: :user
+      has_many :pending_friends, :through => :friendships, source: :friend
+      has_many :requested_friendships, :through => :inverse_friendships, source: :user
     end
 
     ActsAsFriendable::Friendship.class_eval do
